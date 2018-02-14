@@ -1,11 +1,10 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-export default class Title extends Component {
-  render() {
-    return (
+ const Title = () => (
       <div>
-        <header>Weather App</header>
+        <h1 className='title-container__title'>Weather App Finder</h1>
+        <h3 className='title-container__subtitle'>Find out temperature, conditions and more..</h3>
       </div>
     );
-  }
-}
+
+export default Title
