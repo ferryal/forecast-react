@@ -1,8 +1,5 @@
 import React from 'react'
 
-
-
-
 const Weather = (props) =>
    (
       <div className='weather__info'>
@@ -27,9 +24,9 @@ const Weather = (props) =>
             </span>
           </p> }
         {
-          props.description &&
-          <p className='weather__key'>Conditions:
-            <span className='weather__value'> {props.description} </span>
+          props.variance &&
+          <p className='weather__key'>Temperature variance:
+            <span className='weather__value'> {props.variance} </span>
           </p> }
         { props.error && <p className='weather__error'> {props.error} </p> }
       </div>
