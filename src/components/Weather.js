@@ -1,5 +1,8 @@
 import React from 'react'
 
+
+
+
 const Weather = (props) =>
    (
       <div className='weather__info'>
@@ -13,12 +16,15 @@ const Weather = (props) =>
           props.temperature &&
           <p className='weather__key'>Temperature:
             <span className='weather__value'> {props.temperature} </span>
+            Celcius
           </p>
         }
         {
           props.date &&
           <p className='weather__key'>Date:
-            <span className='weather__value'> {props.date} </span>
+            <span className='weather__value'>
+               {props.date}
+            </span>
           </p> }
         {
           props.description &&

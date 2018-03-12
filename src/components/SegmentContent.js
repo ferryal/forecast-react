@@ -14,34 +14,31 @@ class App extends Component {
     description:undefined,
     error: undefined
   }
+
   getWeather = async (e)  => {
     e.preventDefault();
-    const city = "London"
-    const country = "us"
-    const api_call = await fetch (`https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&appid=${API_KEY}`)
+    const city = "Tokyo"
+    const country = "jpn"
+    const api_call = await fetch (`https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&appid=${API_KEY}&units=metric`)
     const data = await api_call.json();
     console.log(data);
     if ( city && country ) {
       this.setState({
-        date: data.list[0].dt,
+        date: new Date((data.list[0].dt)*1000).toLocaleDateString(),
         city: data.city.name,
         country: data.city.country,
-        temperature: data.list[0].main.temp,
+        temperature: (data.list[0].main.temp),
+        //using  default data API
+        // temperature: (data.list[0].main.temp)-273.15,
         // humidity: data.main.humidity,
         // description: data.weather[0].description,
         error: ""
       })
-    } else {
-      this.setState({
-        temperature: undefined,
-        city: undefined,
-        country: undefined,
-        humidity: undefined,
-        description: undefined,
-        error: "Please submit city & country"
-      })
     }
+
   }
+
+
   render() {
     return (
       <div>
