@@ -1,3 +1,1 @@
-## Weather App Finder
-
-![alt text](./weatherApp.png)
+## Forecast React App
