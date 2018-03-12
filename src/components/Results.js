@@ -4,11 +4,11 @@ import React from 'react'
 const Lists = (props) => {
   const results = props.data
   let lists
-  if (results.length > 0) {
+  if (results > 0) {
     lists = results.map(list =>
       <ul>
-        <li>{list.name}</li>
-        <li>{list.latest}</li>
+        <li>{list.list[0].dt}</li>
+        <li>{list.list[0].main.temp}</li>
       </ul>
       // <div>
       //   <td>{list.name}</td>

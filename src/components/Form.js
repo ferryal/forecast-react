@@ -1,31 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react'
 
-
-export default class FormSearch extends Component {
-  state ={
-    searchText: ''
-  }
-  onSearchChange = e => {
-    this.setState({ searchText: e.target.value})
-  }
-  handleSubmit = e => {
-    e.preventDefault()
-    this.props.onSearch(this.query.value)
-    e.currentTarget.reset()
-  }
-  render(){
-    return(
+ const Form = props => (
       <div>
-          <form onSubmit={this.handleSubmit} className="form">
-            <input
-              type="text"
-              onChange={this.onSearchChange}
-              ref={input => (this.query = input)}
-              placeholder="Search What You Need"
-            />
-            <button>Get CDNJS</button>
-          </form>
+        <form onSubmit={props.getWeather}>
+          {/* <input type="text" name="city" placeholder="City" />
+          <input type="text" name="country" placeholder="Country" /> */}
+          <button>Get Weather</button>
+        </form>
       </div>
-    )
-  }
-}
+    );
+
+export default Form

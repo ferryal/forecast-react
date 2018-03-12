@@ -1,45 +1,75 @@
-import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component } from 'react';
 import Form from './Form'
-import Results from './Results'
-import axios from 'axios'
+// import Title from './components/Title'
+import Weather from './Weather'
 
+const API_KEY ="95611c5aee12a6c0aa524eb79dffa7bf"
 
-const API_KEY = "481e3bc28e5264e5607c2b65b449bfc1"
-
-class SegmentContent extends Component {
-    state = {
-      lists: []
+class App extends Component {
+  state = {
+    temperature: undefined,
+    city: undefined,
+    country: undefined,
+    date: undefined,
+    description:undefined,
+    error: undefined
+  }
+  getWeather = async (e)  => {
+    e.preventDefault();
+    const city = "London"
+    const country = "us"
+    const api_call = await fetch (`https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&appid=${API_KEY}`)
+    const data = await api_call.json();
+    console.log(data);
+    if ( city && country ) {
+      this.setState({
+        date: data.list[0].dt,
+        city: data.city.name,
+        country: data.city.country,
+        temperature: data.list[0].main.temp,
+        // humidity: data.main.humidity,
+        // description: data.weather[0].description,
+        error: ""
+      })
+    } else {
+      this.setState({
+        temperature: undefined,
+        city: undefined,
+        country: undefined,
+        humidity: undefined,
+        description: undefined,
+        error: "Please submit city & country"
+      })
     }
-
-  componentWillMount(){
-    this.Search()
   }
-
-  Search = (query = '') => {
-    axios.get(`api.openweathermap.org/data/2.5/forecast?q=London,us&appid=${API_KEY}`)
-    .then(data => {
-      this.setState({lists: data.data.results})
-      console.log(data);
-    })
-    .catch(err => {
-      console.log('Error', err)
-    })
-  }
-
-  render(){
-    return(
-
-              <div>
-                <div>
-                  <Form onSearch={this.Search}/>
-
+  render() {
+    return (
+      <div>
+        <div className="wrapper">
+          <div className="main">
+            <div className="container">
+              <div className="row">
+                <div className="col-xs-5 title-container">
+                  {/* <Title /> */}
                 </div>
-                <Results data={this.state.lists}/>
+                  <div className="col-xs-7 form-container">
+                    <Form getWeather={this.getWeather}/>
+                    <Weather
+                      temperature={this.state.temperature}
+                      city={this.state.city}
+                      country={this.state.country}
+                      date={this.state.date}
+                      description={this.state.description}
+                      error={this.state.error}
+                    />
+                  </div>
               </div>
-
-    )
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 
-export default SegmentContent
+export default App;
